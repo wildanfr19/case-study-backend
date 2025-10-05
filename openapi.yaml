@@ -1,0 +1,75 @@
+openapi: 3.0.3
+info:
+  title: Candidate Evaluation API
+  version: 1.0.0
+  description: API for uploading candidate documents and running asynchronous AI evaluation with RAG.
+servers:
+  - url: http://localhost:3000
+paths:
+  /api/upload:
+    post:
+      summary: Upload candidate CV and project report PDFs
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                cv:
+                  type: string
+                  format: binary
+                project_report:
+                  type: string
+                  format: binary
+      responses:
+        "201":
+          description: Uploaded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  cv_id: { type: string }
+                  project_id: { type: string }
+  /api/evaluate:
+    post:
+      summary: Trigger evaluation job
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                cv_id: { type: string }
+                project_id: { type: string }
+                job_title: { type: string }
+      responses:
+        "202":
+          description: Job queued
+  /api/result/{id}:
+    get:
+      summary: Get evaluation result
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string }
+      responses:
+        "200": { description: Result }
+  /api/evaluations:
+    get:
+      summary: List evaluations
+      responses:
+        "200": { description: List }
+  /api/job/{id}/cancel:
+    post:
+      summary: Cancel a queued/processing job
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string }
+      responses:
+        "200": { description: Canceled }

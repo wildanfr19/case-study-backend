@@ -1,0 +1,14 @@
+node_modules
+npm-debug.log
+Dockerfile*
+docker-compose.yml
+docker-compose.yaml
+.git
+.gitignore
+.env
+uploads/*
+data/vector_store.json
+*.pdf
+__tests__
+coverage
+.vscode*/
