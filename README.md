@@ -1,5 +1,7 @@
 # Case Study Backend
 
+![CI](https://github.com/wildanfr19/case-study-backend/actions/workflows/ci.yml/badge.svg)
+
 Backend service untuk evaluasi kandidat berdasarkan dua dokumen PDF: CV dan Project Report. Sistem menerima upload dua file, mengekstrak teks, lalu menjalankan evaluasi AI (OpenAI) dengan fallback dan mekanisme robust (mock mode, retry, partial success, synthetic fallback).
 
 ## Fitur Utama
@@ -119,9 +121,24 @@ Lihat `.env.example`. Salin ke `.env` dan isi sesuai kebutuhan.
 
 ```
 npm install
-copy .env.example .env   # lalu edit .env
+copy .env.example .env   # PowerShell: Copy-Item .env.example .env
+# edit .env (set OPENAI_API_KEY kalau ada)
 npm start
 ```
+
+### Mode Pengembangan / Watch
+
+```
+npm run dev
+```
+
+### Menjalankan Test
+
+```
+npm test
+```
+
+Test berjalan dalam mock mode (AI_FORCE_MOCK=1 diset di test files) sehingga tidak butuh API key.
 
 ### Menjalankan via Docker
 
