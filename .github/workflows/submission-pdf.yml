@@ -3,27 +3,35 @@ name: Build Submission PDF
 on:
   push:
     paths:
-      - 'SUBMISSION.md'
-      - '.github/workflows/submission-pdf.yml'
-    branches: [ main ]
+      - "SUBMISSION.md"
+      - ".github/workflows/submission-pdf.yml"
+    branches: [main]
   workflow_dispatch: {}
 
 jobs:
   build-pdf:
-    runs-on: ubuntu-latest
+    name: Build PDF (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Install pandoc
+      - name: Install pandoc (Ubuntu)
+        if: matrix.os == 'ubuntu-latest'
         run: |
           sudo apt-get update
           sudo apt-get install -y pandoc
+      - name: Install pandoc (Windows)
+        if: matrix.os == 'windows-latest'
+        run: choco install pandoc --no-progress
       - name: Generate PDF
         run: pandoc SUBMISSION.md -o submission.pdf
       - name: Upload PDF artifact
         uses: actions/upload-artifact@v4
         with:
-          name: submission-pdf
+          name: submission-pdf-${{ matrix.os }}
           path: submission.pdf
       - name: Summary
-        run: echo 'Submission PDF generated and uploaded as artifact.' >> $GITHUB_STEP_SUMMARY
+        run: echo 'Submission PDF generated on ${{ matrix.os }} and uploaded as artifact.' >> $GITHUB_STEP_SUMMARY
