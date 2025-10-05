@@ -5,12 +5,16 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --runInBand",
+    "test:watch": "jest --watch",
+    "ingest": "node scripts/ingest.js",
+    "cleanup": "node scripts/cleanupUploads.js",
+    "submission:pdf": "pandoc SUBMISSION.md -o submission.pdf"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
+  "description": "AI-powered candidate CV & project evaluation backend with async jobs, RAG retrieval, fallback resilience, and OpenAI integration.",
   "dependencies": {
     "axios": "^1.12.2",
     "better-sqlite3": "^12.4.1",

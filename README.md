@@ -2,6 +2,10 @@
 
 ![CI](https://github.com/wildanfr19/case-study-backend/actions/workflows/ci.yml/badge.svg)
 
+### PDF Submission Artifact
+Workflow otomatis: setiap perubahan `SUBMISSION.md` di branch `main` menghasilkan artifact PDF (lihat tab Actions workflow "Build Submission PDF").
+
+
 Backend service untuk evaluasi kandidat berdasarkan dua dokumen PDF: CV dan Project Report. Sistem menerima upload dua file, mengekstrak teks, lalu menjalankan evaluasi AI (OpenAI) dengan fallback dan mekanisme robust (mock mode, retry, partial success, synthetic fallback).
 
 ## Fitur Utama

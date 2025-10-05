@@ -57,7 +57,41 @@ paths:
           required: true
           schema: { type: string }
       responses:
-        "200": { description: Result }
+        "200":
+          description: Result
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id: { type: string }
+                  status:
+                    {
+                      type: string,
+                      enum: [queued, processing, completed, failed, canceled]
+                    }
+                  result:
+                    type: object
+                    nullable: true
+                    properties:
+                      cv_match_rate: { type: number, minimum: 0, maximum: 1 }
+                      project_score: { type: number, minimum: 0, maximum: 5 }
+                      overall_summary: { type: string }
+                      cv_feedback: { type: string }
+                      project_feedback: { type: string }
+                      issues:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            component: { type: string }
+                            error: { type: string }
+                      _meta:
+                        type: object
+                        properties:
+                          retrieved:
+                            type: object
+                            additionalProperties: true
   /api/evaluations:
     get:
       summary: List evaluations
