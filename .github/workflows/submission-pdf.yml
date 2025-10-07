@@ -9,22 +9,34 @@ on:
   workflow_dispatch: {}
 
 jobs:
-  build-pdf:
+  pdf:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
-      - name: Install pandoc
+
+      - name: Prepare output dir
+        run: mkdir -p dist
+
+      - name: Build PDF (pandoc/latex Docker image)
         run: |
-          sudo apt-get update -y
-          sudo apt-get install -y pandoc
-          pandoc --version
-      - name: Generate PDF
-        run: pandoc SUBMISSION.md -o submission.pdf
-      - name: Upload PDF artifact
+          docker run --rm -v "${{ github.workspace }}":/data pandoc/latex:3.1.12.3 \
+            SUBMISSION.md \
+            -o dist/submission.pdf \
+            --from gfm \
+            --metadata=title:"AI CV Evaluator Submission" \
+            --toc \
+            --pdf-engine=xelatex
+
+      - name: List output
+        run: ls -l dist
+
+      - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: submission-pdf
-          path: submission.pdf
+          path: dist/submission.pdf
+          if-no-files-found: error
+
       - name: Summary
-        run: echo 'Submission PDF generated (Ubuntu) and uploaded as artifact.' >> $GITHUB_STEP_SUMMARY
+        run: echo 'PDF built via pandoc/latex Docker image and uploaded.' >> $GITHUB_STEP_SUMMARY
