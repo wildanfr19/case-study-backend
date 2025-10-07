@@ -1,4 +1,4 @@
-# Case Study Backend
+# AI CV Evaluator Backend
 
 ![CI](https://github.com/wildanfr19/case-study-backend/actions/workflows/ci.yml/badge.svg)
 

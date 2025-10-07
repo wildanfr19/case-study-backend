@@ -1,8 +1,8 @@
-# Case Study Submission
+# AI CV Evaluator Submission
 
 ## 1. Title
 
-AI-Powered Candidate CV & Project Evaluation Backend
+AI CV Evaluator – Candidate CV & Project Report Scoring Backend
 
 ## 2. Candidate Information
 

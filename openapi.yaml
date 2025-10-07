@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: Candidate Evaluation API
+  title: AI CV Evaluator API
   version: 1.0.0
   description: API for uploading candidate documents and running asynchronous AI evaluation with RAG.
 servers:
