@@ -10,28 +10,21 @@ on:
 
 jobs:
   build-pdf:
-    name: Build PDF (${{ matrix.os }})
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest]
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Install pandoc (Ubuntu)
-        if: matrix.os == 'ubuntu-latest'
+      - name: Install pandoc
         run: |
-          sudo apt-get update
+          sudo apt-get update -y
           sudo apt-get install -y pandoc
-      - name: Install pandoc (Windows)
-        if: matrix.os == 'windows-latest'
-        run: choco install pandoc --no-progress
+          pandoc --version
       - name: Generate PDF
         run: pandoc SUBMISSION.md -o submission.pdf
       - name: Upload PDF artifact
         uses: actions/upload-artifact@v4
         with:
-          name: submission-pdf-${{ matrix.os }}
+          name: submission-pdf
           path: submission.pdf
       - name: Summary
-        run: echo 'Submission PDF generated on ${{ matrix.os }} and uploaded as artifact.' >> $GITHUB_STEP_SUMMARY
+        run: echo 'Submission PDF generated (Ubuntu) and uploaded as artifact.' >> $GITHUB_STEP_SUMMARY
