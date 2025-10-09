@@ -20,7 +20,7 @@ jobs:
 
       - name: Build PDF (pandoc/latex Docker image)
         run: |
-          docker run --rm -v "${{ github.workspace }}":/data pandoc/latex:3.1.12.3 \
+          docker run --rm -v "${{ github.workspace }}":/data pandoc/latex:latest \
             SUBMISSION.md \
             -o dist/submission.pdf \
             --from gfm \
