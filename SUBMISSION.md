@@ -238,5 +238,3 @@ Dokumen ini dapat diekspor ke PDF (mis. pandoc / extension) tanpa modifikasi tam
 | Security baseline                  | ✔      | Helmet + rate limiting                            |
 | Screenshots embedded               | ✔      | Lihat Section 6                                   |
 | README & SUBMISSION.md             | ✔      | Dokumentasi lengkap                               |
-
-Catatan: Repository URL perlu ditambahkan pada Section 3 sebelum pengiriman final.
